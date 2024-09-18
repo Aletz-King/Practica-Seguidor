@@ -1,0 +1,111 @@
+import RPi.GPIO as GPIO
+import time
+import RPIservo
+import move
+
+#definir entradas
+line_pin_right = 19
+line_pin_middle = 16
+line_pin_left = 20
+
+move.setup()
+scGear = RPIservo.ServoCtrl()
+scGear.moveInit()
+
+#inicializacion
+def setup():
+    GPIO.setwarnings(True)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(line_pin_right,GPIO.IN)
+    GPIO.setup(line_pin_middle,GPIO.IN)
+    GPIO.setup(line_pin_left,GPIO.IN)
+    
+def izquierda():
+    scGear.moveAngle(0,60)
+    move.move(30, 'forward', 'no', 1)
+
+def derecha():
+    scGear.moveAngle(0,-60)
+    move.move(30, 'forward', 'no', 1)
+
+def frente():
+    scGear.moveAngle(0,0)
+    move.move(30, 'forward', 'no', 1)
+
+def detener():
+    move.motor_right(0, 0, 0)
+    move.motor_left(0, 0, 0)
+    
+    
+#programa principal
+def run():
+        
+    status_right = GPIO.input(line_pin_right)
+    status_middle = GPIO.input(line_pin_middle)
+    status_left = GPIO.input(line_pin_left)
+
+    #print("Valor Izquierda :: " + str(status_right) + " Valor Centro :: " + str(status_middle) + " Valor Derecha :: " + str(status_left))
+    
+    x = input()
+
+    if x == 'w':
+        print("recto")
+        frente()
+    elif x == 'd':
+        print('derecha')
+        derecha()
+    elif x == 'a':
+        print('izquierda')
+        izquierda()
+    elif x =='s':
+        detener()
+        print('parar')
+
+        
+    """
+    
+    time.sleep(1)
+    
+    time.sleep(1)
+    
+    time.sleep(1)
+    """
+    
+    
+    """
+    Vista en primera persona
+    Limites de grados desde -60 hatsa 60 grados
+    """
+    """
+    if status_right == 0 and status_left == 0: # (0 0)
+    move.motor_right(1, 0, 40)
+    move.motor_left(1, 1, 40)
+    scGear.moveAngle(0,0)
+    #if status_right == 0 and status_left == 1: # (0 1)
+    #move.motor_right(1, 0, 50)
+    #move.motor_left(1, 1, 100)
+    #scGear.moveAngle(0,60)
+    #if status_right == 1 and status_left == 0: # (1 0)
+    #move.motor_right(1, 0, 50)
+    #move.motor_left(1, 1, 100)
+    #scGear.moveAngle(0,-60)
+    #if status_right == 1 and status_left == 1: # (1 1)
+    #move.motor_right(1, 0, 50)
+    #move.motor_left(1, 1, 100)
+    #scGear.moveAngle(0,0)
+    """
+    """
+    bloque de comentario
+    """
+    
+if __name__ == '__main__':
+    
+    try:
+        setup()
+        move.setup()
+        while 1:
+            run()
+        pass
+    except KeyboardInterrupt:
+        move.destroy()
+        print("Saliendo")
