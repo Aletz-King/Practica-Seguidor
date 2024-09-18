@@ -1,3 +1,9 @@
+"""
+Hagan su documentacion de su codigo
+Que es cada paquete que importan
+y como se usa
+"""
+
 import RPi.GPIO as GPIO
 import time
 
