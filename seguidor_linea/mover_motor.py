@@ -1,7 +1,7 @@
-import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO #Libreria usada para controlar los pines de la RaspBerry
 import time
-import RPIservo
-import move
+import RPIservo #Libreria usada para controlar el servo de la direccion de llantas
+import move #Libreria usada para el control de los motores
 
 #definir entradas
 line_pin_right = 19
@@ -20,32 +20,32 @@ def setup():
     GPIO.setup(line_pin_middle,GPIO.IN)
     GPIO.setup(line_pin_left,GPIO.IN)
     
-def izquierda():
+def izquierda(): # Giro a la izquierda
     scGear.moveAngle(0,60)
     move.move(30, 'forward', 'no', 1)
 
-def derecha():
+def derecha(): # Giro a la derecha
     scGear.moveAngle(0,-60)
     move.move(30, 'forward', 'no', 1)
 
-def frente():
+def frente(): # Avance Frontal    
     scGear.moveAngle(0,0)
     move.move(30, 'forward', 'no', 1)
 
-def detener():
+def detener(): # Paro de motores
     move.motor_right(0, 0, 0)
     move.motor_left(0, 0, 0)
     
     
-#programa principal
+# Programa principal
 def run():
-        
+
     status_right = GPIO.input(line_pin_right)
     status_middle = GPIO.input(line_pin_middle)
     status_left = GPIO.input(line_pin_left)
 
-    #print("Valor Izquierda :: " + str(status_right) + " Valor Centro :: " + str(status_middle) + " Valor Derecha :: " + str(status_left))
-    
+    print("Valor Izquierda :: " + str(status_right) + " Valor Centro :: " + str(status_middle) + " Valor Derecha :: " + str(status_left))
+    """
     x = input()
 
     if x == 'w':
@@ -60,40 +60,26 @@ def run():
     elif x =='s':
         detener()
         print('parar')
-
-        
     """
-    
-    time.sleep(1)
-    
-    time.sleep(1)
-    
-    time.sleep(1)
-    """
-    
-    
+      
     """
     Vista en primera persona
     Limites de grados desde -60 hatsa 60 grados
     """
-    """
+
+    # Logica con 2 sensores
     if status_right == 0 and status_left == 0: # (0 0)
-    move.motor_right(1, 0, 40)
-    move.motor_left(1, 1, 40)
-    scGear.moveAngle(0,0)
-    #if status_right == 0 and status_left == 1: # (0 1)
-    #move.motor_right(1, 0, 50)
-    #move.motor_left(1, 1, 100)
-    #scGear.moveAngle(0,60)
-    #if status_right == 1 and status_left == 0: # (1 0)
-    #move.motor_right(1, 0, 50)
-    #move.motor_left(1, 1, 100)
-    #scGear.moveAngle(0,-60)
-    #if status_right == 1 and status_left == 1: # (1 1)
-    #move.motor_right(1, 0, 50)
-    #move.motor_left(1, 1, 100)
-    #scGear.moveAngle(0,0)
-    """
+        frente()
+
+    if status_right == 0 and status_left == 1: # (0 1)
+        derecha()
+
+    if status_right == 1 and status_left == 0: # (1 0)
+        izquierda()
+
+    if status_right == 1 and status_left == 1: # (1 1)
+        frente()
+   
     """
     bloque de comentario
     """
