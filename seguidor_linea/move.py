@@ -93,7 +93,7 @@ def motor_right(status, direction, speed):#Motor 1 positive and negative rotatio
 			GPIO.output(Motor_A_Pin2, GPIO.HIGH)
 			pwm_A.start(0)
 			pwm_A.ChangeDutyCycle(speed)
-	return direction
+
 
 
 def move(speed, direction, turn, radius=0.6):   # 0 < radius <= 1  

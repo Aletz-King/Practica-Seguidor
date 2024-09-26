@@ -35,7 +35,7 @@ def derecha(): # Giro a la derecha
 def frente(): # Avance Frontal    
     scGear.moveAngle(0,0)
     time.sleep(0.1)
-    move.move(30, 'forward', 'no', 1)
+    move.move(20, 'forward', 'no', 1)
 
 def detener(): # Paro de motores
     move.motor_right(0, 0, 0)
@@ -51,7 +51,7 @@ def run():
         
         print("Valor Izquierda :: " + str(status_right) + " Valor Centro :: " + str(status_middle) + " Valor Derecha :: " + str(status_left))
         
-        """
+        
         x = input()
 
         if x == 'w':
@@ -66,7 +66,7 @@ def run():
         elif x =='s':
             detener()
             print('parar')
-        """
+        
         
         """
         Vista en primera persona
@@ -74,7 +74,7 @@ def run():
         """
 
         # Logica con 2 sensores
-       
+        """
         if status_right == 0 and status_left == 0: # (0 0)
             frente()
             time.sleep(0.05)
@@ -86,8 +86,9 @@ def run():
             time.sleep(0.05)
         if status_right == 1 and status_left == 1: # (1 1)
             frente()
-       
-        time.sleep(0.05)
+        """
+        time.sleep(0.1)
+        
         
         
         # pass
